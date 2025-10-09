@@ -29,6 +29,31 @@ document.addEventListener('DOMContentLoaded', function () {
     'December',
   ]
 
+  // Dynamically generate month input fields in the data tab
+  const container = document.getElementById('month-inputs-container')
+  const template = document.getElementById('month-input-template')
+  if (container && template) {
+    months.forEach(month => {
+      const clone = template.content.cloneNode(true)
+      clone.querySelector('.month-label').textContent = month
+      // Income
+      const incomeLabel = clone.querySelector('.income-label')
+      incomeLabel.textContent = 'Income'
+      incomeLabel.id = `${month.toLowerCase()}-income-label`
+      const incomeInput = clone.querySelector('.income-input')
+      incomeInput.id = `${month.toLowerCase()}-income`
+      incomeInput.setAttribute('aria-describedby', incomeLabel.id)
+      // Expense
+      const expenseLabel = clone.querySelector('.expense-label')
+      expenseLabel.textContent = 'Expense'
+      expenseLabel.id = `${month.toLowerCase()}-expense-label`
+      const expenseInput = clone.querySelector('.expense-input')
+      expenseInput.id = `${month.toLowerCase()}-expense`
+      expenseInput.setAttribute('aria-describedby', expenseLabel.id)
+      container.appendChild(clone)
+    })
+  }
+
   // Helper to get values from inputs
   function getMonthlyData(type) {
     return months.map(month => {
