@@ -1,3 +1,18 @@
+// Download canvas as image on button click
+document.addEventListener('DOMContentLoaded', () => {
+  const downloadBtn = document.getElementById('download-btn')
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', () => {
+      const canvas = document.getElementById('barChart')
+      if (!canvas) return
+      const image = canvas.toDataURL('image/png')
+      const link = document.createElement('a')
+      link.href = image
+      link.download = 'monthly-income-vs-expense.png'
+      link.click()
+    })
+  }
+})
 document.addEventListener('DOMContentLoaded', function () {
   const months = [
     'January',
