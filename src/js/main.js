@@ -1,18 +1,3 @@
-// Download canvas as image on button click
-document.addEventListener('DOMContentLoaded', () => {
-  const downloadBtn = document.getElementById('download-btn')
-  if (downloadBtn) {
-    downloadBtn.addEventListener('click', () => {
-      const canvas = document.getElementById('barChart')
-      if (!canvas) return
-      const image = canvas.toDataURL('image/png')
-      const link = document.createElement('a')
-      link.href = image
-      link.download = 'monthly-income-vs-expense.png'
-      link.click()
-    })
-  }
-})
 document.addEventListener('DOMContentLoaded', function () {
   const months = [
     'January',
@@ -28,6 +13,20 @@ document.addEventListener('DOMContentLoaded', function () {
     'November',
     'December',
   ]
+
+  // Download canvas as image on button click
+  const downloadBtn = document.getElementById('download-btn')
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', () => {
+      const canvas = document.getElementById('barChart')
+      if (!canvas) return
+      const image = canvas.toDataURL('image/png')
+      const link = document.createElement('a')
+      link.href = image
+      link.download = 'monthly-income-vs-expense.png'
+      link.click()
+    })
+  }
 
   // Dynamically generate month input fields in the data tab
   const container = document.getElementById('month-inputs-container')
@@ -101,5 +100,16 @@ document.addEventListener('DOMContentLoaded', function () {
         },
       },
     })
+  })
+
+  // Function to handle username input changes
+  document.getElementById('username').addEventListener('input', () => {
+    const usernameInput = document.getElementById('username')
+    const usernameRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/
+    if (usernameRegex.test(usernameInput.value)) {
+      usernameInput.style.border = '2px solid green'
+    } else {
+      usernameInput.style.border = '2px solid red'
+    }
   })
 })
