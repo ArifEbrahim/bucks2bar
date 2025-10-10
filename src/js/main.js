@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     months.forEach(month => {
       const clone = template.content.cloneNode(true)
       clone.querySelector('.month-label').textContent = month
+
       // Income
       const incomeLabel = clone.querySelector('.income-label')
       incomeLabel.textContent = 'Income'
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const incomeInput = clone.querySelector('.income-input')
       incomeInput.id = `${month.toLowerCase()}-income`
       incomeInput.setAttribute('aria-describedby', incomeLabel.id)
+
       // Expense
       const expenseLabel = clone.querySelector('.expense-label')
       expenseLabel.textContent = 'Expense'
@@ -46,6 +48,13 @@ document.addEventListener('DOMContentLoaded', function () {
       const expenseInput = clone.querySelector('.expense-input')
       expenseInput.id = `${month.toLowerCase()}-expense`
       expenseInput.setAttribute('aria-describedby', expenseLabel.id)
+
+      // Set default values: income > expense, both between 100 and 500
+      const expense = Math.floor(Math.random() * 401) + 100 // 100-500
+      const income = Math.floor(Math.random() * (500 - (expense + 1) + 1)) + (expense + 1) // (expense+1)-500
+      expenseInput.value = expense
+      incomeInput.value = income
+
       container.appendChild(clone)
     })
   }
