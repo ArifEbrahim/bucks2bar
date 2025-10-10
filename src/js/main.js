@@ -15,18 +15,15 @@ document.addEventListener('DOMContentLoaded', function () {
   ]
 
   // Download canvas as image on button click
-  const downloadBtn = document.getElementById('download-btn')
-  if (downloadBtn) {
-    downloadBtn.addEventListener('click', () => {
-      const canvas = document.getElementById('barChart')
-      if (!canvas) return
-      const image = canvas.toDataURL('image/png')
-      const link = document.createElement('a')
-      link.href = image
-      link.download = 'monthly-income-vs-expense.png'
-      link.click()
-    })
-  }
+  document.getElementById('download-btn')?.addEventListener('click', () => {
+    const canvas = document.getElementById('barChart')
+    if (!canvas) return
+    const image = canvas.toDataURL('image/png')
+    const link = document.createElement('a')
+    link.href = image
+    link.download = 'monthly-income-vs-expense.png'
+    link.click()
+  })
 
   // Dynamically generate month input fields in the data tab
   const container = document.getElementById('month-inputs-container')
@@ -54,27 +51,19 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Helper to get values from inputs
-  function getMonthlyData(type) {
-    return months.map(month => {
-      const input = document.getElementById(`${month.toLowerCase()}-${type}`)
-      return input && input.value ? Number(input.value) : 0
-    })
-  }
+  const getMonthlyData = type =>
+    months.map(month => Number(document.getElementById(`${month.toLowerCase()}-${type}`)?.value) || 0)
 
   let barChartInstance = null
 
   // Show chart when Chart tab is activated
-  document.getElementById('chart-tab').addEventListener('shown.bs.tab', function () {
+  document.getElementById('chart-tab')?.addEventListener('shown.bs.tab', () => {
     const incomeData = getMonthlyData('income')
     const expenseData = getMonthlyData('expense')
-
-    const ctx = document.getElementById('barChart').getContext('2d')
-
+    const ctx = document.getElementById('barChart')?.getContext('2d')
+    if (!ctx) return
     // Destroy previous chart if exists
-    if (barChartInstance) {
-      barChartInstance.destroy()
-    }
-
+    barChartInstance?.destroy()
     barChartInstance = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -103,13 +92,9 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 
   // Function to handle username input changes
-  document.getElementById('username').addEventListener('input', () => {
+  document.getElementById('username')?.addEventListener('input', () => {
     const usernameInput = document.getElementById('username')
     const usernameRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/
-    if (usernameRegex.test(usernameInput.value)) {
-      usernameInput.style.border = '2px solid green'
-    } else {
-      usernameInput.style.border = '2px solid red'
-    }
+    usernameInput.style.border = usernameRegex.test(usernameInput.value) ? '2px solid green' : '2px solid red'
   })
 })
