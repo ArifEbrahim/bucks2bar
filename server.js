@@ -12,6 +12,8 @@ app.post('/send-email', async (req, res) => {
   const { email, image } = req.body
   if (!email || !image) return res.status(400).send('Missing data')
 
+  if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return res.status(400).send('Invalid email')
+
   // Configure transporter for Resend SMTP
   const transporter = createTransport({
     host: 'smtp.resend.com',
@@ -37,8 +39,9 @@ app.post('/send-email', async (req, res) => {
         },
       ],
     })
-    res.send('Email sent')
+    res.send('Email sent!')
   } catch (err) {
+    console.error('Error sending email:', err)
     res.status(500).send('Failed to send email')
   }
 })
