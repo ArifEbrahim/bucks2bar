@@ -12,3 +12,6 @@ Thumbs.db
 
 # IDEs
 .vscode/
+
+# env
+.env*
