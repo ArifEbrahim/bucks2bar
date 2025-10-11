@@ -17,10 +17,10 @@ app.post('/send-email', async (req, res) => {
   // Configure transporter for Resend SMTP
   const transporter = createTransport({
     host: 'smtp.resend.com',
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    port: 465,
+    secure: true,
     auth: {
-      user: process.env.RESEND_SMTP_USER,
+      user: 'resend',
       pass: process.env.RESEND_SMTP_PASS,
     },
   })
