@@ -106,4 +106,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const usernameRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/
     usernameInput.style.border = usernameRegex.test(usernameInput.value) ? '2px solid green' : '2px solid red'
   })
+
+  // Function to send chart to user email address
+  document.getElementById('send-email-btn')?.addEventListener('click', async () => {
+    const canvas = document.getElementById('barChart')
+    const email = document.getElementById('user-email')?.value
+    if (!canvas || !email) {
+      alert('Chart or email not found!')
+      return
+    }
+    const image = canvas.toDataURL('image/png')
+
+    // Send to backend for emailing
+    try {
+      const response = await fetch('http://localhost:3000/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, image }),
+      })
+      if (response.ok) {
+        alert('Email sent!')
+      }
+    } catch (error) {
+      console.error('Error sending email:', error)
+    }
+  })
 })
