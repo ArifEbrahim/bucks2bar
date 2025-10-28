@@ -1,7 +1,7 @@
 # bucks2bar Project
 
 ## Overview
-The "bucks2bar" project is a web application that utilizes Bootstrap for responsive design and custom styles for enhanced user experience. This project aims to provide a seamless interface for users.
+The "bucks2bar" project is a web application that helps you visualise data. It turns your montly revenue and expense numbers into a bar graph image. You can then save that image locally or send it to an email address.
 
 ## Project Structure
 ```
